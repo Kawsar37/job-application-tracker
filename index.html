@@ -5,9 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Application Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Inter font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      * {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+      }
+    </style>
   </head>
-  <body>
-    <h1 class="text-3xl text-red-600">Hello World</h1>
+  <body class="bg-gray-200/50">
+    <header class="max-w-[90%] md:max-w-[70%] mx-auto mt-10 lg:mt-[60px]">
+      <h1 class="text-3xl font-bold text-[#002C5C] mb-5">
+        Job Application Tracker
+      </h1>
+      <div class="info-card-container grid grid-cols-3 gap-4">
+        <div
+          class="info-card bg-white p-5 rounded-lg border border-gray-700/10"
+        >
+          <p class="font-semibold text-[#323B49] mb-2">Total</p>
+          <p id="total-count" class="font-extrabold text-2xl text-[#003c5c]">
+            8
+          </p>
+        </div>
+
+        <div
+          class="info-card bg-white p-5 rounded-lg border border-gray-700/10"
+        >
+          <p class="font-semibold text-[#323B49] mb-2">Interview</p>
+          <p
+            id="interview-count"
+            class="font-extrabold text-2xl text-[#10B981]"
+          >
+            0
+          </p>
+        </div>
+
+        <div
+          class="info-card bg-white p-5 rounded-lg border border-gray-700/10"
+        >
+          <p class="font-semibold text-[#323B49] mb-2">Rejected</p>
+          <p id="rejected-count" class="font-extrabold text-2xl text-[#EF4444]">
+            0
+          </p>
+        </div>
+      </div>
+
+      <hr class="opacity-10 my-[30px]" />
+    </header>
+    <main class="max-w-[90%] md:max-w-[70%] mx-auto mt-10 lg:mt-[60px]">
+      <div class="main-top flex justify-between mb-6">
+        <h3 class="text-2xl font-semibold text-[#002C5C]">Available Jobs</h3>
+        <p class="text-[#64748B]">8 jobs</p>
+      </div>
+      <div class="button-container mb-4 space-x-2">
+        <button
+          onclick="toggleBtn('all')"
+          class="cursor-pointer min-w-[100px] py-2 bg-[#3B82F6] text-white font-semibold rounded-sm border border-gray-700/10"
+          id="all"
+        >
+          All
+        </button>
+        <button
+          onclick="toggleBtn('interview')"
+          class="cursor-pointer min-w-[100px] py-2 bg-white text-[#64748B] font-semibold rounded-sm border border-gray-700/10"
+          id="interview"
+        >
+          Interview
+        </button>
+        <button
+          onclick="toggleBtn('rejected')"
+          class="cursor-pointer min-w-[100px] py-2 bg-white text-[#64748B] font-semibold rounded-sm border border-gray-700/10"
+          id="rejected"
+        >
+          Rejected
+        </button>
+      </div>
+
+      <section class="empty hidden"></section>
+
+      <section id="job-card-container" class="">
+        <div
+          class="card bg-white p-6 rounded-lg border border-gray-700/10 flex justify-between relative"
+        >
+          <div class="space-y-5">
+            <div>
+              <h4 class="text-xl font-semibold text-[#002C5C]">
+                Mobile First Corp
+              </h4>
+              <p class="text-lg text-[#64748B]">React Native Developer</p>
+            </div>
+
+            <p class="text-[#64748b]">
+              Remote • Full-time • $130,000 - $175,000
+            </p>
+
+            <div>
+              <span
+                class="bg-[#EEF4FF] text-[#002C5C] px-4 py-2 rounded-sm inline-block mb-2 font-semibold"
+                >NOT APPLIED</span
+              >
+              <p class="text-gray-800">
+                Build cross-platform mobile applications using React Native.
+                Work on products used by millions of users worldwide.
+              </p>
+            </div>
+            <div class="space-x-2">
+              <button
+                class="cursor-pointer font-semibold text-[#10B981] bg-white rounded-sm border border-[#10B981] px-6 py-2"
+              >
+                INTERVIEW
+              </button>
+              <button
+                class="cursor-pointer font-semibold text-[#EF4444] bg-white rounded-sm border border-[#EF4444] px-6 py-2"
+              >
+                REJECTED
+              </button>
+            </div>
+          </div>
+          <span
+            class="absolute right-6 top-6 border border-gray-700/10 rounded-full h-8 w-8 flex justify-center items-center text-gray-600 cursor-pointer"
+          >
+            <i class="fa-regular fa-trash-can"></i>
+          </span>
+        </div>
+      </section>
+    </main>
     <script src="./script.js"></script>
   </body>
 </html>
