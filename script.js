@@ -192,7 +192,7 @@ function show(jobList) {
           </div>
           <span
             jobid=${job.id}
-            class="card-delete-btn absolute right-6 top-6 border border-gray-700/10 rounded-full h-8 w-8 flex justify-center items-center text-gray-600 cursor-pointer"
+            class="card-delete-btn absolute right-6 top-6 border border-gray-700/10 rounded-full h-10 w-10 flex justify-center items-center text-gray-600 cursor-pointer"
           >
             <i class="card-delete-btn fa-regular fa-trash-can"></i>
           </span>
