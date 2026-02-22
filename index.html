@@ -22,6 +22,14 @@
       referrerpolicy="no-referrer"
     />
 
+    <!-- Daisy Ui Connect -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <style>
       * {
         font-family: "Inter", sans-serif;
@@ -99,52 +107,7 @@
 
       <section class="empty hidden"></section>
 
-      <section id="job-card-container" class="">
-        <div
-          class="card bg-white p-6 rounded-lg border border-gray-700/10 flex justify-between relative"
-        >
-          <div class="space-y-5">
-            <div>
-              <h4 class="text-xl font-semibold text-[#002C5C]">
-                Mobile First Corp
-              </h4>
-              <p class="text-lg text-[#64748B]">React Native Developer</p>
-            </div>
-
-            <p class="text-[#64748b]">
-              Remote • Full-time • $130,000 - $175,000
-            </p>
-
-            <div>
-              <span
-                class="bg-[#EEF4FF] text-[#002C5C] px-4 py-2 rounded-sm inline-block mb-2 font-semibold"
-                >NOT APPLIED</span
-              >
-              <p class="text-gray-800">
-                Build cross-platform mobile applications using React Native.
-                Work on products used by millions of users worldwide.
-              </p>
-            </div>
-            <div class="space-x-2">
-              <button
-                class="cursor-pointer font-semibold text-[#10B981] bg-white rounded-sm border border-[#10B981] px-6 py-2"
-              >
-                INTERVIEW
-              </button>
-              <button
-                class="cursor-pointer font-semibold text-[#EF4444] bg-white rounded-sm border border-[#EF4444] px-6 py-2"
-              >
-                REJECTED
-              </button>
-            </div>
-          </div>
-          <span
-            class="absolute right-6 top-6 border border-gray-700/10 rounded-full h-8 w-8 flex justify-center items-center text-gray-600 cursor-pointer"
-          >
-            <i class="fa-regular fa-trash-can"></i>
-          </span>
-        </div>
-      </section>
+      <section id="job-card-container" class=""></section>
     </main>
     <script src="./script.js"></script>
   </body>
