@@ -108,6 +108,9 @@ interviewBtn = document.getElementById("interview");
 rejectedBtn = document.getElementById("rejected");
 deleteBtn = document.getElementById("delete-btn");
 
+emptySection = document.getElementById("empty");
+let availableJobs = document.getElementById("available-jobs");
+
 function toggleBtn(id) {
   allBtn.classList.remove("bg-[#3B82F6]", "text-white");
   interviewBtn.classList.remove("bg-[#3B82F6]", "text-white");
@@ -123,18 +126,28 @@ function toggleBtn(id) {
   selectedBtn.classList.add("bg-[#3B82F6]", "text-white");
 
   if (id === "all") {
+    availableJobs.innerText = allJobs.length + " jobs";
     show(allJobs);
   } else if (id === "rejected") {
+    availableJobs.innerText = rejectedList.length + " jobs";
     show(rejectedList);
   } else {
+    availableJobs.innerText = interviewList.length + " jobs";
     show(interviewList);
   }
 }
 
 function getCurrentCategory() {
-  if (interviewBtn.classList.contains("text-white")) return interviewList;
-  else if (rejectedBtn.classList.contains("text-white")) return rejectedList;
-  else return allJobs;
+  if (interviewBtn.classList.contains("text-white")) {
+    availableJobs.innerText = interviewList.length + " jobs";
+    return interviewList;
+  } else if (rejectedBtn.classList.contains("text-white")) {
+    availableJobs.innerText = rejectedList.length + " jobs";
+    return rejectedList;
+  } else {
+    availableJobs.innerText = allJobs.length + " jobs";
+    return allJobs;
+  }
 }
 
 cardContainer = document.getElementById("job-card-container");
@@ -188,6 +201,11 @@ function show(jobList) {
     cardElement.innerHTML = card;
     cardContainer.appendChild(cardElement.firstElementChild);
   });
+  if (jobList.length == 0) {
+    emptySection.classList.remove("hidden");
+  } else {
+    emptySection.classList.add("hidden");
+  }
 }
 
 cardContainer.addEventListener("click", function (e) {
