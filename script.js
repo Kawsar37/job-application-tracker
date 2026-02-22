@@ -23,68 +23,68 @@ allJobs = [
   },
   {
     id: 3,
-    companyName: "Mobile First Corp",
-    position: "React Native Developer",
-    location: "Remote",
+    companyName: "DataViz Solutions",
+    position: "Data Visualization Specialist",
+    location: "Boston, MA",
     type: "Full-time",
-    salary: "$130,000 - $175,000",
+    salary: "$125,000 - $165,000",
     description:
-      "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
+      "Transform complex data into compelling visualizations. Required skills: D3.js, React, and strong analytical thinking.",
     status: "all",
   },
   {
     id: 4,
-    companyName: "Mobile First Corp",
-    position: "React Native Developer",
-    location: "Remote",
+    companyName: "CloudFirst Inc",
+    position: "Backend Developer",
+    location: "Seattle, WA",
     type: "Full-time",
-    salary: "$130,000 - $175,000",
+    salary: "$140,000 - $190,000",
     description:
-      "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
+      "Design and maintain scalable backend systems using Python and AWS. Work with modern DevOps practices and cloud infrastructure.",
     status: "all",
   },
   {
     id: 5,
-    companyName: "Mobile First Corp",
-    position: "React Native Developer",
-    location: "Remote",
+    companyName: "Innovation Labs",
+    position: "UI/UX Engineer",
+    location: "Austin, TX",
     type: "Full-time",
-    salary: "$130,000 - $175,000",
+    salary: "$110,000 - $150,000",
     description:
-      "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
+      "Create beautiful and functional user interfaces for our suite of products. Strong design skills and frontend development expertise required.",
     status: "all",
   },
   {
     id: 6,
-    companyName: "Mobile First Corp",
-    position: "React Native Developer",
-    location: "Remote",
+    companyName: "MegaCorp Solutions",
+    position: "JavaScript Developer",
+    location: "New York, NY",
     type: "Full-time",
-    salary: "$130,000 - $175,000",
+    salary: "$130,000 - $170,00",
     description:
-      "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
+      "Build enterprise applications with JavaScript and modern frameworks. We offer competitive compensation, health insurance, and professional development opportunities.",
     status: "all",
   },
   {
     id: 7,
-    companyName: "Mobile First Corp",
-    position: "React Native Developer",
+    companyName: "StartupXYZ",
+    position: "Full Stack Engineer",
     location: "Remote",
     type: "Full-time",
-    salary: "$130,000 - $175,000",
+    salary: "$120,000 - $160,000",
     description:
-      "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
+      "Join our fast-growing startup and work on our core platform. Experience with Node.js and React required. Great benefits and equity package included.",
     status: "all",
   },
   {
     id: 8,
-    companyName: "Mobile First Corp",
-    position: "React Native Developer",
-    location: "Remote",
+    companyName: "TechCorp Industries",
+    position: "Senior Frontend Developer",
+    location: "San Francisco, CA",
     type: "Full-time",
     salary: "$130,000 - $175,000",
     description:
-      "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
+      "We are looking for an experienced Frontend Developer to build scalable web applications using React and TypeScript. You will work with a talented team on cutting-edge projects.",
     status: "all",
   },
 ];
@@ -157,7 +157,7 @@ function show(jobList) {
 
   jobList.forEach((job) => {
     let card = `<div
-          class="card bg-white p-6 rounded-lg border border-gray-700/10 flex justify-between relative mb-4"
+          class="card bg-white p-6 rounded-lg border border-gray-700/10 flex justify-between relative mb-4 ${job.status === "all" ? "border-l-4 border-l-gray-400/30" : job.status === "interview" ? "border-l-4 border-l-green-400" : "border-l-4 border-l-red-400"}"
         >
           <div class="space-y-5">
             <div>
@@ -177,25 +177,27 @@ function show(jobList) {
                 ${job.description}
               </p>
             </div>
-            <div class="space-x-2" jobid=${job.id}>
+            <div class="space-x-2">
               <button
+              jobid=${job.id}
                 class="card-interview-btn cursor-pointer font-semibold text-[#10B981] bg-white rounded-sm border border-[#10B981] px-6 py-2"
               >
                 INTERVIEW
               </button>
               <button
+              jobid=${job.id}
                 class="card-rejected-btn cursor-pointer font-semibold text-[#EF4444] bg-white rounded-sm border border-[#EF4444] px-6 py-2"
               >
                 REJECTED
               </button>
             </div>
           </div>
-          <span
+          <button
             jobid=${job.id}
             class="card-delete-btn absolute right-6 top-6 border border-gray-700/10 rounded-full h-10 w-10 flex justify-center items-center text-gray-600 cursor-pointer"
           >
-            <i class="card-delete-btn fa-regular fa-trash-can"></i>
-          </span>
+            <i jobid=${job.id} class="card-delete-btn fa-regular fa-trash-can"></i>
+          </button>
         </div>`;
     let cardElement = document.createElement("div");
     cardElement.innerHTML = card;
@@ -209,7 +211,7 @@ function show(jobList) {
 }
 
 cardContainer.addEventListener("click", function (e) {
-  let jobid = e.target.parentNode.getAttribute("jobid");
+  let jobid = e.target.getAttribute("jobid");
   if (e.target.classList.contains("card-interview-btn")) {
     allJobs.forEach((job) => {
       if (job.id == jobid) {
@@ -239,7 +241,7 @@ cardContainer.addEventListener("click", function (e) {
     });
   }
   if (e.target.classList.contains("card-delete-btn")) {
-    console.log(jobid);
+    console.log(e.target);
     allJobs = allJobs.filter((job) => job.id != jobid);
     interviewList = interviewList.filter((job) => job.id != jobid);
     rejectedList = rejectedList.filter((job) => job.id != jobid);
