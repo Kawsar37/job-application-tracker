@@ -89,17 +89,18 @@ allJobs = [
   },
 ];
 
-// function setCount() {
-//   totalCount = document.getElementById("total-count");
-//   interviewCount = document.getElementById("interview-count");
-//   rejectedCount = document.getElementById("rejected-count");
+interviewList = [];
+rejectedList = [];
 
-//   totalCount.innerText = allList.length;
-//   interviewCount.innerText = interviewList.length;
-//   rejectedCount.innerText = rejectedList.length;
-// }
+function setCount() {
+  totalCount = document.getElementById("total-count");
+  interviewCount = document.getElementById("interview-count");
+  rejectedCount = document.getElementById("rejected-count");
 
-// setCount();
+  totalCount.innerText = allJobs.length;
+  interviewCount.innerText = interviewList.length;
+  rejectedCount.innerText = rejectedList.length;
+}
 
 // Buttons
 allBtn = document.getElementById("all");
@@ -122,22 +123,28 @@ function toggleBtn(id) {
   selectedBtn.classList.add("bg-[#3B82F6]", "text-white");
 
   if (id === "all") {
-    // all category dekhate hobe
-    allJobs.forEach((job) => {
-      show(job, id);
-    });
-  } else if (id === "interview") {
-    // interview category dekhate hobe
+    show(allJobs);
+  } else if (id === "rejected") {
+    show(rejectedList);
   } else {
-    // rejected category dekhate hobe
+    show(interviewList);
   }
 }
 
-function show(job, type) {
-  let cardContainer = document.getElementById("job-card-container");
+function getCurrentCategory() {
+  if (interviewBtn.classList.contains("text-white")) return interviewList;
+  else if (rejectedBtn.classList.contains("text-white")) return rejectedList;
+  else return allJobs;
+}
+
+cardContainer = document.getElementById("job-card-container");
+
+function show(jobList) {
   cardContainer.innerHTML = "";
-  let card = `<div
-          class="card bg-white p-6 rounded-lg border border-gray-700/10 flex justify-between relative"
+
+  jobList.forEach((job) => {
+    let card = `<div
+          class="card bg-white p-6 rounded-lg border border-gray-700/10 flex justify-between relative mb-4"
         >
           <div class="space-y-5">
             <div>
@@ -152,35 +159,76 @@ function show(job, type) {
             </p>
 
             <div>
-              <span
-                class="bg-[#EEF4FF] text-[#002C5C] px-4 py-2 rounded-sm inline-block mb-2 font-semibold"
-                >NOT APPLIED</span
-              >
+              <span class="mb-2 ${job.status === "all" ? "btn btn-soft" : job.status === "interview" ? "btn btn-success" : "btn btn-error"}" >${job.status === "all" ? "NOT APPLIED" : job.status === "interview" ? "INTERVIEW" : "REJECTED"}</span >
               <p class="text-gray-800">
                 ${job.description}
               </p>
             </div>
-            <div class="space-x-2">
+            <div class="space-x-2" jobid=${job.id}>
               <button
-                id="card-interview-btn"
-                class="cursor-pointer font-semibold text-[#10B981] bg-white rounded-sm border border-[#10B981] px-6 py-2"
+                class="card-interview-btn cursor-pointer font-semibold text-[#10B981] bg-white rounded-sm border border-[#10B981] px-6 py-2"
               >
                 INTERVIEW
               </button>
               <button
-                id="card-rejected-btn"
-                class="cursor-pointer font-semibold text-[#EF4444] bg-white rounded-sm border border-[#EF4444] px-6 py-2"
+                class="card-rejected-btn cursor-pointer font-semibold text-[#EF4444] bg-white rounded-sm border border-[#EF4444] px-6 py-2"
               >
                 REJECTED
               </button>
             </div>
           </div>
           <span
-            id="delete-btn"
-            class="absolute right-6 top-6 border border-gray-700/10 rounded-full h-8 w-8 flex justify-center items-center text-gray-600 cursor-pointer"
+            jobid=${job.id}
+            class="card-delete-btn absolute right-6 top-6 border border-gray-700/10 rounded-full h-8 w-8 flex justify-center items-center text-gray-600 cursor-pointer"
           >
-            <i class="fa-regular fa-trash-can"></i>
+            <i class="card-delete-btn fa-regular fa-trash-can"></i>
           </span>
         </div>`;
-  cardContainer.appendChild(card);
+    let cardElement = document.createElement("div");
+    cardElement.innerHTML = card;
+    cardContainer.appendChild(cardElement.firstElementChild);
+  });
 }
+
+cardContainer.addEventListener("click", function (e) {
+  let jobid = e.target.parentNode.getAttribute("jobid");
+  if (e.target.classList.contains("card-interview-btn")) {
+    allJobs.forEach((job) => {
+      if (job.id == jobid) {
+        job.status = "interview";
+        let ase = interviewList.find((item) => item.id == jobid);
+        if (!ase) {
+          rejectedList = rejectedList.filter((item) => {
+            return item.id != jobid;
+          });
+          interviewList.push(job);
+        }
+      }
+    });
+  }
+  if (e.target.classList.contains("card-rejected-btn")) {
+    allJobs.forEach((job) => {
+      if (job.id == jobid) {
+        job.status = "rejected";
+        let ase = rejectedList.find((item) => item.id == jobid);
+        if (!ase) {
+          interviewList = interviewList.filter((item) => {
+            return item.id != jobid;
+          });
+          rejectedList.push(job);
+        }
+      }
+    });
+  }
+  if (e.target.classList.contains("card-delete-btn")) {
+    console.log(jobid);
+    allJobs = allJobs.filter((job) => job.id != jobid);
+    interviewList = interviewList.filter((job) => job.id != jobid);
+    rejectedList = rejectedList.filter((job) => job.id != jobid);
+  }
+  setCount();
+  show(getCurrentCategory());
+});
+
+setCount();
+show(allJobs);
